@@ -1,0 +1,24 @@
+#UsernameAndPassword {
+    background-color: rgba(51,102,204,0.8);
+    border-radius: 25px;
+}
+
+body {
+    background-image: url(../img/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+div > h1 {
+    color: white;
+    font-size: 3em;
+}
+
+#contenedor {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+#datosLogin {
+    color: white;
+}
