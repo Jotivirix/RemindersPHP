@@ -22,7 +22,6 @@ else {
         require 'index2.php';
     }
 }
-
 ?>
 
 <!DOCTYPE html>

@@ -1,5 +1,7 @@
 <?php
+//Guardo en la variable $nombre el valor de la $_SESSION de Nombre
 $nombre = $_SESSION['Nombre'];
+//Guardo en la variable $dni el valor de la $_SESSION del DNI
 $dni = $_SESSION['DNI'];
 ?>
 <div>
@@ -52,10 +54,19 @@ $dni = $_SESSION['DNI'];
 
 <script>
 
+    /**
+     * 
+     * @returns {Carga en #contenedor el index.php}
+     */
     function inicio() {
         $('#contenedor').load('index.php');
     };
 
+    /**
+     * 
+     * @returns {carga en #interfazUsuario el archivo nuevoRecordatorio.php
+     * y le paso por parametro el dni}
+     */
     function addRecordatorio(){
         var _dni = '<?php echo $dni ?>';
         $('#interfazUsuario').load('nuevoRecordatorio.php',{
@@ -63,6 +74,11 @@ $dni = $_SESSION['DNI'];
         });
     }
     
+    /**
+     * 
+     * @returns {carga en #interfazUsuario el archivo misRecordatorios.php
+     * y le paso por parametro el dni}
+     */
     function verRecordatorios(){
         var _dni = '<?php echo $dni ?>';
         $('#interfazUsuario').load('misRecordatorios.php',{
@@ -70,20 +86,14 @@ $dni = $_SESSION['DNI'];
         });
     }
     
+    //Cuando hago clicj en nuevoRecordatorio se ejecuta la funcion addRecordatorio();
     $('#nuevoRecordatorio').click(function(){
         addRecordatorio();
     });
     
+    //Cuando hago clicj en misRecordatorios se ejecuta la funcion verRecordatorios();
     $('#misRecordatorios').click(function(){
         verRecordatorios();
-    });
-    
-    function ocultaNavbar() {
-        $('').collapse('hide');
-    };
-    
-    $('#contraerBtn').click(function() {
-        ocultaNavbar();
     });
 
 </script>
