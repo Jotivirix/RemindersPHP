@@ -16,8 +16,18 @@
         $_SESSION['usuario'] = $nombreUsuario;
         $resultado = $consulta ->fetch_array();
         $passGuardada = $resultado['Pwd'];
+        $nombre = $resultado['Nombre'];
+        $mail = $resultado['Email'];
+        $dni = $resultado['DNI'];
         //compruebo que la contraseña es la que tengo guardada en la BBDD
-        if ($pass == $passGuardada){
+        if ($pass == $passGuardada) {
+            //guardo los datos del usuario que ha hecho login correcto
+            $_SESSION['DNI'] = $dni;
+            $_SESSION['Nombre'] = $nombre;
+            $_SESSION['Email'] = $mail;
+            date_default_timezone_set('Europe/Madrid');
+            setcookie('Nombre',  $nombre, time() + 60*60*24*365);
+            setcookie('Email',  hash('md5', $email), time() + 60*60*24*365);
             require 'accesoCorrecto.php';
         }
         else {

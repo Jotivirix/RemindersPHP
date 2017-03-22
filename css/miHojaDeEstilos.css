@@ -22,3 +22,41 @@ div > h1 {
 #datosLogin {
     color: white;
 }
+
+#nuevoRecordatorio {
+    height: 120px;
+    word-break: break-all;
+    white-space: normal;
+}
+
+#misRecordatorios {
+    height: 120px;
+    word-break: break-all;
+    white-space: normal;
+}
+
+#addRecordatorio {
+    background-color: rgba(255,255,255,1);
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+#asuntoRecordatorio {
+    width: 100%;
+    resize: none;
+    text-align: center;
+    height: 10%;
+}
+
+#ubicacionRecordatorio {
+    width: 100%;
+}
+
+#horaRecordatorio {
+    width: 100%;
+}
+
+#resultadoInsercion > h1 {
+    color: black;
+}
