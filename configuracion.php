@@ -1,6 +1,6 @@
 <?php
-$servidor = 'mysql.hostinger.es';
-$bd = '	u950509940_remin';
-$usuario_mysql = 'u950509940_root';
-$clave_mysql = 'root12345678';
+$servidor = '127.0.0.1';
+$bd = 'Reminders';
+$usuario_mysql = 'root';
+$clave_mysql = 'root';
 ?>
