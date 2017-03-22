@@ -2,7 +2,6 @@
 //Obtengo el DNI del usuario mediante $_POST
 //El dni se lo paso a nuevoRecordatorio.php desde accesoCorrecto.php
 $dni = $_POST['dni'];
-
 ?>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +9,7 @@ $dni = $_POST['dni'];
 <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
 <link rel="stylesheet" href="css/jquery-ui.theme.min.css" type="text/css">
 
-<div>
+<div id="contenedor2">
     <h1 class="text-center">Añadir Nuevo Recordatorio</h1>
     <div id="addRecordatorio">
         <div class="row" id="datosRecordatorio">
@@ -73,9 +72,9 @@ $dni = $_POST['dni'];
             <br>  
             <div class="col-xs-1"></div>
             <div class="col-xs-10">
-                <button class="btn btn-lg btn-primary btn-block" id="addRecordatorioBtn">Agregar Recordatorio</button>
+                <button class="btn btn-lg btn-primary btn-block" id="addRecordatorioBtnXS">Agregar Recordatorio</button>
                 <br>
-                <button class="btn btn-lg btn-danger btn-block" id="botonVolver"><span class="glyphicon glyphicon-arrow-left"></span> Volver a Inicio <span class="glyphicon glyphicon-arrow-left"></span></button>
+                <button class="btn btn-lg btn-danger btn-block" id="botonVolverXS"><span class="glyphicon glyphicon-arrow-left"></span> Volver a Inicio <span class="glyphicon glyphicon-arrow-left"></span></button>
             </div>
             <div class="col-xs-1"></div>
         </div>
@@ -291,6 +290,30 @@ $dni = $_POST['dni'];
      */
     $('#addRecordatorioBtn').click(function () {
         agregaRecordatorio();
+    });
+    
+    /**
+     * Cuando hago click en el boton de agregar nuevo recordatorio
+     * en version XS se ejecuta la función agregarRecordatorio
+     */
+    $('#addRecordatorioBtnXS').click(function(){
+        agregaRecordatorio();
+    });
+    
+    /**
+     * Cuando hago click en el boton de volver de añadir recordatorio
+     * se redirige la localizacion al index.php
+     */
+    $('#botonVolver').click(function() {        
+        window.location.replace("index.php");
+    });
+    
+    /**
+     * Cuando hago click en el boton de volver de añadir recordatorio
+     * en version XS se redirige la localizacion al index.php
+     */
+    $('#botonVolverXS').click(function() {        
+        window.location.replace("index.php");
     });
 
     //*********----API DE GOOGLE PARA LA BARRA DE LAS UBICACIONES----*********\\

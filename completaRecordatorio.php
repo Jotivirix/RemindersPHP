@@ -7,14 +7,12 @@ date_default_timezone_set('Europe/Madrid');
 //Defino una variable para conectaBBDD();
 $mysqli = conectaBBDD();
 
-//leo los parámetros que me pasa el nuevoRecordatorio.php
-$asunto = $_POST['asunto'];
-$ubicacion = $_POST['ubicacion'];
-$fechaYHora = $_POST['fechaYHora'];
-$dni = $_POST['dni'];
+//leo los parámetros que me pasa el misRecordatorios.php
+$idRecordatorio = $_POST['id'];
+$dniUsuario = $_POST['dni'];
 
-//Hago la insercion en la base de datos
-$insertaRecordatorio = $mysqli->query("INSERT INTO Recordatorio (IDUsuario, Asunto, Ubicacion, FechaVencimiento) VALUES ('$dni', '$asunto', '$ubicacion', '$fechaYHora')");
+//Intento actualizar el estado del recordatorio
+$actualizaRecordatorio = $mysqli->query("UPDATE Recordatorio SET Completo = 1 WHERE ID = $idRecordatorio AND IDUsuario = '$dniUsuario'");
 
 //Si hay 1 fila afectada, se habrá insertado correctamente. Aviso al usuario que
 //la inserción ha sido correcta
@@ -22,16 +20,16 @@ if ($mysqli->affected_rows == 1) {
     ?>
     <meta charset="UTF-8">
     <!-- Este archivo gestiona la eliminacion de mascotas --><!-- Modal -->
-    <div class="modal fade" id="recordatorioAgregado" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal fade" id="recordatorioCompletado" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" style="color:black;">Recordatorio Añadido Correctamente</h4>
+                    <h4 class="modal-title" style="color:black;">Recordatorio Completado</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Recordatorio agregado correctamente</p>
+                    <p>Recordatorio completado correctamente</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-success" data-dismiss="modal" onclick="vuelve();">Cerrar</button>
@@ -42,10 +40,11 @@ if ($mysqli->affected_rows == 1) {
     </div>
     <?php
     /**
-     * Muestro el modal que avisa al usuario que la insercion ha sido correcta
+     * Muestro el modal que avisa al usuario que la tarea de completar
+     * el recordatorio ha sido correcta
      */
     echo "<script>";
-    echo "$('#recordatorioAgregado').modal('show');";
+    echo "$('#recordatorioCompletado').modal('show');";
     echo "</script>";
 } 
 /**
@@ -54,16 +53,16 @@ if ($mysqli->affected_rows == 1) {
  */
 else {
     ?>
-    <div class="modal fade" id="errorRecordatorio" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal fade" id="errorCompletarRecordatorio" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" style="color:black;">Error Al Agregar Recordatorio <span class="glyphicon glyphicon-remove"></span></h4>
+                    <h4 class="modal-title" style="color:black;">Error Al Completar Recordatorio <span class="glyphicon glyphicon-remove"></span></h4>
                 </div>
                 <div class="modal-body">
-                    <p>Ocurrió un error al agregar el recordatorio</p>
+                    <p>Ocurrió un error al intentar completar el recordatorio</p>
                     <p>Compruebe la conexion y pruebe de nuevo más tarde</p>
                 </div>
                 <div class="modal-footer">
@@ -75,10 +74,10 @@ else {
     </div>
     <?php
     /**
-     * Muestro el modal que indica que se produjo un error al añadir el recordatorio
+     * Muestro el modal que indica que se produjo un error al completar el recordatorio
      */
     echo "<script>";
-    echo "$('#errorRecordatorio').modal('show');";
+    echo "$('#errorCompletarRecordatorio').modal('show');";
     echo "</script>";
 }
 ?>
@@ -90,10 +89,13 @@ else {
      * @returns {Vuelve al index tras insertar el recordatorio}
      */
     function vuelve(){
+        var _dni = '<?php echo $dniUsuario ?>';
         $('#recordatorioAgregado').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
-        window.location.replace("index.php");
+        $('#interfazUsuario').load('misRecordatorios.php',{
+            dni: _dni
+        });
     }
     
     /**
@@ -102,10 +104,13 @@ else {
      * el nuevo recordatorio en la base de datos}
      */
     function retry(){
+        var _dni = '<?php echo $dniUsuario ?>';
         $('#errorRecordatorio').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
-        window.location.replace("index.php");
+        $('#interfazUsuario').load('misRecordatorios.php',{
+            dni: _dni
+        });
     }
     
     </script>

@@ -36,6 +36,10 @@ FOREIGN KEY (IDUsuario) REFERENCES Usuario (DNI) ON UPDATE CASCADE ON DELETE CAS
 INSERT INTO Recordatorio (IDUsuario, Asunto, Ubicacion, FechaVencimiento) VALUES
 ('00000000A','Recordatorio de prueba numero 1','Madrid','2017-08-09 10:00:00'),
 ('00000000A','Recordatorio de prueba numero 2','Madrid','2017-08-09 10:00:00'),
+('00000000A','Recordatorio de prueba numero 3','Madrid','2017-08-09 10:00:00'),
+('00000000A','Recordatorio de prueba numero 4','Madrid','2017-08-09 10:00:00'),
+('00000000A','Recordatorio de prueba numero 5','Madrid','2017-08-09 10:00:00'),
+('00000000A','Recordatorio de prueba numero 6','Madrid','2017-08-09 10:00:00'),
 ('00000001B','Recordatorio de prueba numero 1','Madrid','2017-08-09 10:00:00'),
 ('00000001B','Recordatorio de prueba numero 2','Madrid','2017-08-09 10:00:00'),
 ('00000002C','Recordatorio de prueba numero 1','Madrid','2017-08-09 10:00:00'),
