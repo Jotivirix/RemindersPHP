@@ -2,18 +2,13 @@
 include('funciones.php');
 date_default_timezone_set('Europe/Madrid');
 
-$_COOKIE['DNI'] = $dniCrypted;
-
-$dni = 
-
 $mysqli = conectaBBDD();
 
 //leo los parámetros que me pasa el index.php
 $asunto = $_POST['asunto'];
 $ubicacion = $_POST['ubicacion'];
 $fechaYHora = $_POST['fechaYHora'];
-
-$fecha = explode($fechaYHora, " ");
+$dni = $_POST['dni'];
 
 $insertaRecordatorio = $mysqli->query("INSERT INTO Recordatorio (IDUsuario, Asunto, Ubicacion, FechaVencimiento) VALUES ('$dni', '$asunto', '$ubicacion', '$fechaYHora')");
 
@@ -31,7 +26,6 @@ if ($mysqli->affected_rows == 1) {
                 </div>
                 <div class="modal-body">
                     <p>Recordatorio agregado correctamente</p>
-                    <p>El recordatorio vence a fecha <?php $fecha[0] ?> y a las <?php $fecha[1] ?> horas</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-success" data-dismiss="modal" onclick="vuelve();">Cerrar</button>
@@ -79,12 +73,14 @@ if ($mysqli->affected_rows == 1) {
         $('#recordatorioAgregado').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
+        window.location.replace("index.php");
     }
     
     function retry(){
         $('#errorRecordatorio').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
+        window.location.replace("index.php");
     }
     
     </script>

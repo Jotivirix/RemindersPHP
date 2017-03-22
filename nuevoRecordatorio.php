@@ -2,35 +2,6 @@
 
 $dni = $_POST['dni'];
 
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-echo $dni;
-
 ?>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,6 +24,7 @@ echo $dni;
                 <input id="fechaRecordatorio" type="text" class="form-control" placeholder="Fecha Recordatorio" required>
                 <h3 class="text-left">Seleccione la Hora de Vencimiento</h3>
                 <select id="horaRecordatorio">
+                    <option selected>Seleccione la hora</option>
                     <option>0:00</option>
                     <option>1:00</option>
                     <option>2:00</option>
@@ -63,7 +35,7 @@ echo $dni;
                     <option>7:00</option>
                     <option>8:00</option>
                     <option>9:00</option>
-                    <option selected>10:00</option>
+                    <option>10:00</option>
                     <option>11:00</option>
                     <option>12:00</option>
                     <option>13:00</option>
@@ -124,6 +96,42 @@ echo $dni;
 
 <script>
 
+    $(document).ready(function() {
+        compruebaDatos();
+    });
+    
+    $('#asuntoRecordatorio').focus(function() {
+        compruebaDatos();
+    });
+    
+    $('#asuntoRecordatorio').click(function() {
+        compruebaDatos();
+    });
+    
+    $('#ubicacionRecordatorio').focus(function() {
+        compruebaDatos();
+    });
+    
+    $('#ubicacionRecordatorio').click(function() {
+        compruebaDatos();
+    });
+    
+    $('#fechaRecordatorio').focus(function() {
+        compruebaDatos();
+    });
+    
+    $('#fechaRecordatorio').click(function() {
+        compruebaDatos();
+    });
+    
+    $('#horaRecordatorio').focus(function() {
+        compruebaDatos();
+    });
+    
+    $('#horaRecordatorio').click(function() {
+        compruebaDatos();
+    });
+
     /**
      * 
      * @type Establece el datepicker, es decir el calendario
@@ -162,8 +170,23 @@ echo $dni;
      * Establece que el campo fechaNacimiento es de tipo datepicker
      */
     $("#fechaRecordatorio").datepicker();
+    
+    function compruebaDatos(){
+        var _asunto = $('#asuntoRecordatorio').val();
+        var _ubicacion = $('#ubicacionRecordatorio').val();
+        var _fecha = $('#fechaRecordatorio').val();
+        var _hora = $('#horaRecordatorio option:selected').text();
+        var coincide = _hora.localeCompare('Seleccione la hora');
+        if(_asunto.length === 0 || _ubicacion.length === 0 || _fecha.length === 0 || coincide == -1){
+            $('#addRecordatorioBtn').addClass('disabled');
+        }
+        else {
+            $('#addRecordatorioBtn').removeClass('disabled');
+        }
+    }
 
     function agregaRecordatorio() {
+        var _dni = '<?php echo $dni; ?>';
         var _asunto = $('#asuntoRecordatorio').val();
         var _ubicacion = $('#ubicacionRecordatorio').val();
         var _fecha = $('#fechaRecordatorio').val();
@@ -175,7 +198,8 @@ echo $dni;
         $('#resultadoInsercion').load('insertaRecordatorio.php',{
             asunto: _asunto,
             ubicacion: _ubicacion,
-            fechaYHora: _fechaYHora
+            fechaYHora: _fechaYHora,
+            dni: _dni
         });
     }
 
