@@ -26,23 +26,24 @@ CREATE TABLE Recordatorio(
 ID INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 IDUsuario VARCHAR(9) NOT NULL,
 Asunto VARCHAR(256) NOT NULL,
-Ubicacion VARCHAR(512) NOT NULL,
+Latitud VARCHAR(32) NOT NULL DEFAULT '40.372',
+Longitud VARCHAR(32) NOT NULL DEFAULT '-3.915',
 Completo BOOL DEFAULT FALSE,
 FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
 FechaVencimiento DATETIME NOT NULL,
 FOREIGN KEY (IDUsuario) REFERENCES Usuario (DNI) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-INSERT INTO Recordatorio (IDUsuario, Asunto, Ubicacion, FechaVencimiento) VALUES
-('00000000A','Recordatorio de prueba numero 1','Madrid','2017-08-09 10:00:00'),
-('00000000A','Recordatorio de prueba numero 2','Madrid','2017-08-09 10:00:00'),
-('00000000A','Recordatorio de prueba numero 3','Madrid','2017-08-09 10:00:00'),
-('00000000A','Recordatorio de prueba numero 4','Madrid','2017-08-09 10:00:00'),
-('00000000A','Recordatorio de prueba numero 5','Madrid','2017-08-09 10:00:00'),
-('00000000A','Recordatorio de prueba numero 6','Madrid','2017-08-09 10:00:00'),
-('00000001B','Recordatorio de prueba numero 1','Madrid','2017-08-09 10:00:00'),
-('00000001B','Recordatorio de prueba numero 2','Madrid','2017-08-09 10:00:00'),
-('00000002C','Recordatorio de prueba numero 1','Madrid','2017-08-09 10:00:00'),
-('00000003D','Recordatorio de prueba numero 1','Madrid','2017-08-09 10:00:00'),
-('00000004E','Recordatorio de prueba numero 1','Madrid','2017-08-09 10:00:00'),
-('00000005F','Recordatorio de prueba numero 1','Madrid','2017-08-09 10:00:00');
+INSERT INTO Recordatorio (IDUsuario, Asunto, latitud, Longitud, FechaVencimiento) VALUES
+('00000000A','Recordatorio de prueba numero 1',DEFAULT, DEFAULT,'2017-08-09 10:00:00'),
+('00000000A','Recordatorio de prueba numero 2',DEFAULT, DEFAULT,'2017-08-09 10:00:00'),
+('00000000A','Recordatorio de prueba numero 3',DEFAULT, DEFAULT,'2017-08-09 10:00:00'),
+('00000000A','Recordatorio de prueba numero 4',DEFAULT, DEFAULT,'2017-08-09 10:00:00'),
+('00000000A','Recordatorio de prueba numero 5',DEFAULT, DEFAULT,'2017-08-09 10:00:00'),
+('00000000A','Recordatorio de prueba numero 6',DEFAULT, DEFAULT,'2017-08-09 10:00:00'),
+('00000001B','Recordatorio de prueba numero 1',DEFAULT, DEFAULT,'2017-08-09 10:00:00'),
+('00000001B','Recordatorio de prueba numero 2',DEFAULT, DEFAULT,'2017-08-09 10:00:00'),
+('00000002C','Recordatorio de prueba numero 1',DEFAULT, DEFAULT,'2017-08-09 10:00:00'),
+('00000003D','Recordatorio de prueba numero 1',DEFAULT, DEFAULT,'2017-08-09 10:00:00'),
+('00000004E','Recordatorio de prueba numero 1',DEFAULT, DEFAULT,'2017-08-09 10:00:00'),
+('00000005F','Recordatorio de prueba numero 1',DEFAULT, DEFAULT,'2017-08-09 10:00:00');

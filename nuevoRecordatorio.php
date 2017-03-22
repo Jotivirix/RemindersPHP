@@ -17,8 +17,17 @@ $dni = $_POST['dni'];
             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                 <h3 class="text-left">Introduzca el Asunto</h3>
                 <textarea maxlength="256" rows="5" id="asuntoRecordatorio"></textarea>
-                <h3 class="text-left">Introduzca la Ubicación</h3>
-                <input id="ubicacionRecordatorio" class="controls" type="text" placeholder="Ubicacion del Recordatorio" maxlength="512">
+                <!--<input id="ubicacionRecordatorio" class="controls" type="text" placeholder="Ubicacion del Recordatorio" maxlength="512">-->
+                <h3 class="text-left">Introduzca la Latitud</h3>
+                <input id="latitudObtenida" class="controls" type="text" placeholder="Latitud" maxlength="32">
+                <h3 class="text-left">Introduzca la Longitud</h3>
+                <input id="longitudObtenida" class="controls" type="text" placeholder="Longitud" maxlength="32">
+                <br>
+                <p class="text-center" id="errorUbicacionActual"></p>
+                <br>
+                <button class="btn btn-default btn-block btn-lg" id="getLocationBtn">
+                    <span class="glyphicon glyphicon-map-marker"></span> Obtener la localización actual <span class="glyphicon glyphicon-map-marker"></span>
+                </button>
                 <h3 class="text-left">Seleccione la Fecha de Vencimiento</h3>
                 <input id="fechaRecordatorio" type="text" class="form-control" placeholder="Fecha Recordatorio" required>
                 <h3 class="text-left">Seleccione la Hora de Vencimiento</h3>
@@ -52,9 +61,7 @@ $dni = $_POST['dni'];
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
         </div>
-        <br>
         <div id="resultadoInsercion"></div>
-        <br>
         <br>
         <div class="row hidden-xs">         
             <br>
@@ -102,6 +109,8 @@ $dni = $_POST['dni'];
      */
     $(document).ready(function() {
         compruebaDatos();
+        latitud.value = "40.372";
+        longitud.value = "-3.915";
     });
     
     /**
@@ -231,18 +240,21 @@ $dni = $_POST['dni'];
     function compruebaDatos(){
         //Obtengo el asunto
         var _asunto = $('#asuntoRecordatorio').val();
-        //Obtengo la ubicación
-        var _ubicacion = $('#ubicacionRecordatorio').val();
+        //Obtengo la latitud
+        var _lat = $('#latitudObtenida').val();
+        //Obtengo la longitud
+        var _long = $('#longitudObtenida').val();
         //Obtengo la fecha
         var _fecha = $('#fechaRecordatorio').val();
         //Obtengo la hora
         var _hora = $('#horaRecordatorio option:selected').text();
         //Obtengo si el campo de la hora está con 'Seleccione la hora'
         var coincide = _hora.localeCompare('Seleccione la hora');
-        //Si el asunto está vacio, la ubicación está vacía o la fecha está vacia
-        //o bien, la hora está con el valor 'Seleccione la hora' deshabilito el
-        //boton para añadir nuevos recordatorios y cambio el texto del botón
-        if(_asunto.length === 0 || _ubicacion.length === 0 || _fecha.length === 0 || coincide === -1){
+        //Si el asunto está vacio, la latitud está vacía, la longitud está vacia
+        //la fecha está vacia o bien, la hora está con el valor
+        //'Seleccione la hora' deshabilito el boton para añadir nuevos
+        //recordatorios y cambio el texto del botón
+        if(_asunto.length === 0 || _fecha.length === 0 || coincide === -1){
             $('#addRecordatorioBtn').prop('disabled', true);            
             $('#addRecordatorioBtn').text('Rellene los datos');
         }
@@ -266,8 +278,10 @@ $dni = $_POST['dni'];
         var _dni = '<?php echo $dni; ?>';
         //Obtengo el asunto
         var _asunto = $('#asuntoRecordatorio').val();
-        //Obtengo la ubicacion
-        var _ubicacion = $('#ubicacionRecordatorio').val();
+        //Obtengo la latitud
+        var _lati = $('#latitudObtenida').val();
+        //Obtengo la longitud
+        var _longi = $('#longitudObtenida').val();
         //Obtengo la fecha del recordatorio
         var _fecha = $('#fechaRecordatorio').val();
         //Obtengo la hora del recordatorio
@@ -278,7 +292,8 @@ $dni = $_POST['dni'];
         //necesarios para insertar los datos en la base de datos
         $('#resultadoInsercion').load('insertaRecordatorio.php',{
             asunto: _asunto,
-            ubicacion: _ubicacion,
+            latitud: _lati,
+            longitud: _longi,
             fechaYHora: _fechaYHora,
             dni: _dni
         });
@@ -315,35 +330,72 @@ $dni = $_POST['dni'];
     $('#botonVolverXS').click(function() {        
         window.location.replace("index.php");
     });
+    
+    var latitud = document.getElementById("latitudObtenida");
+    var longitud = document.getElementById("longitudObtenida");
+    var x = document.getElementById("errorUbicacionActual");
 
-    //*********----API DE GOOGLE PARA LA BARRA DE LAS UBICACIONES----*********\\
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(showPosition);
+        } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";}
+        }
 
-    // This example adds a search box to a map, using the Google Place Autocomplete
-    // feature. People can enter geographical searches. The search box will return a
-    // pick list containing a mix of places and predicted search terms.
-
-    function initAutocomplete() {
-
-        // Create the search box and link it to the UI element.
-        var input = document.getElementById('ubicacionRecordatorio');
-        var searchBox = new google.maps.places.SearchBox(input);
-
-        // [START region_getplaces]
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function () {
-            var places = searchBox.getPlaces();
-
-            if (places.length === 0) {
-                return;
-            }
-
-        });
-        // [END region_getplaces]
+    function showPosition(position) {
+        latitud.value = position.coords.latitude;
+        longitud.value = position.coords.longitude;
     }
+    
+    function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "El usuario ha bloqueado el permiso de Geolocalizacion.";
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Información de Loclización no disponible.";
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "Se excedió el límite de tiempo para obtener la solicitud";
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "Ocurrió un error desconocido.";
+            break;
+    }
+}
+    
+    $('#getLocationBtn').click(function() {
+        getLocation();
+    });
 
-
-</script>
+//    //*********----API DE GOOGLE PARA LA BARRA DE LAS UBICACIONES----*********\\
+//
+//    // This example adds a search box to a map, using the Google Place Autocomplete
+//    // feature. People can enter geographical searches. The search box will return a
+//    // pick list containing a mix of places and predicted search terms.
+//
+//    function initAutocomplete() {
+//
+//        // Create the search box and link it to the UI element.
+//        var input = document.getElementById('ubicacionRecordatorio');
+//        var searchBox = new google.maps.places.SearchBox(input);
+//
+//        // [START region_getplaces]
+//        // Listen for the event fired when the user selects a prediction and retrieve
+//        // more details for that place.
+//        searchBox.addListener('places_changed', function () {
+//            var places = searchBox.getPlaces();
+//
+//            if (places.length === 0) {
+//                return;
+//            }
+//
+//        });
+//        // [END region_getplaces]
+//    }
+//
+//
+//</script>
 
 <!-- Script para ejecutar la API de Google -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3E4-IyhIDzdvPzqfrtW6wp7f6hD3OoNg&libraries=places&callback=initAutocomplete" async defer></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3E4-IyhIDzdvPzqfrtW6wp7f6hD3OoNg&libraries=places&callback=initAutocomplete" async defer></script>-->

@@ -44,9 +44,10 @@ $dni = $_POST['dni'];
                 $r = $consulta->fetch_array();
                 $recordatorios[$i][0] = $r['ID'];
                 $recordatorios[$i][1] = $r['Asunto'];
-                $recordatorios[$i][2] = $r['Ubicacion'];
-                $recordatorios[$i][3] = $r['Completo'];
-                $recordatorios[$i][4] = $r['FechaVencimiento'];
+                $recordatorios[$i][2] = $r['Latitud'];                
+                $recordatorios[$i][3] = $r['Longitud'];
+                $recordatorios[$i][4] = $r['Completo'];
+                $recordatorios[$i][5] = $r['FechaVencimiento'];
             }
             //ahora voy a usar los datos
             ?>
@@ -81,10 +82,10 @@ $dni = $_POST['dni'];
                                     echo '<tr class="text-center" id="fila' . $i . '">';
                                     echo '<td class="hidden" id=id'.$i.'>' . $recordatorios[$i][0] . '</td>';
                                     echo '<td>' . $recordatorios[$i][1] . '</td>';
-                                    echo '<td>' . $recordatorios[$i][2] . '</td>';
-                                    echo '<td>' . $recordatorios[$i][3] . '</td>';
+                                    echo '<td>' . $recordatorios[$i][2] . ' ' . $recordatorios[$i][3] .'</td>';
                                     echo '<td>' . $recordatorios[$i][4] . '</td>';
-                                    if($recordatorios[$i][3] == 0){
+                                    echo '<td>' . $recordatorios[$i][5] . '</td>';
+                                    if($recordatorios[$i][4] == 0){
                                     echo '<td><button class="btn btn-primary"><span class="glyphicon glyphicon-edit" id="completaRecordatorio' . $i . '" onclick="completaRecordatorioSeleccionado(\'' . $i . '\');"></span></button></td>';
                                     }
                                     else{

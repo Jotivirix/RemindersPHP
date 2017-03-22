@@ -9,12 +9,13 @@ $mysqli = conectaBBDD();
 
 //leo los parámetros que me pasa el nuevoRecordatorio.php
 $asunto = $_POST['asunto'];
-$ubicacion = $_POST['ubicacion'];
+$latitud = $_POST['latitud'];
+$longitud = $_POST['longitud'];
 $fechaYHora = $_POST['fechaYHora'];
 $dni = $_POST['dni'];
 
 //Hago la insercion en la base de datos
-$insertaRecordatorio = $mysqli->query("INSERT INTO Recordatorio (IDUsuario, Asunto, Ubicacion, FechaVencimiento) VALUES ('$dni', '$asunto', '$ubicacion', '$fechaYHora')");
+$insertaRecordatorio = $mysqli->query("INSERT INTO Recordatorio (IDUsuario, Asunto, Latitud, Longitud, FechaVencimiento) VALUES ('$dni', '$asunto', '$latitud', '$longitud', '$fechaYHora')");
 
 //Si hay 1 fila afectada, se habrá insertado correctamente. Aviso al usuario que
 //la inserción ha sido correcta
