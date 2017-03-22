@@ -67,9 +67,19 @@
         autoResizeDiv();
     });
 
+    /**
+     * 
+     * @returns {cargo en #contenedor el login con los parametros pasados}
+     */
     function cargaLogin() {
+        //Nombre de usuario y email son el mismo campo, de esta manera, el usuario
+        //puede entrar tecleando su nombre de usuario o su email
+        
+        //Obtengo el nombre de usaurio escrito
         var _nombreUsuario = $('#nombreUsuario').val();
+        //Obtengo el email
         var _email = $('#nombreUsuario').val();
+        //Obtengo la contraseña
         var _pass = $('#pass').val();
 
         $('#contenedor').load('login.php', {
@@ -80,6 +90,10 @@
     }
     ;
 
+    /**
+     * 
+     * Al pulsar el boton de entrar se carga la funcion cargaLogin();
+     */
     $('#btnEntrar').click(function () {
         cargaLogin();
     });

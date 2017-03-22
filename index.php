@@ -1,17 +1,22 @@
 <?php
-
+//Si no hay sesion la empiezo
 if (!isset($_SESSION)) {
     session_start();
 }
+//Si no hay variable de sesion del DNI borro las cookies
 if (!isset($_SESSION['DNI'])) {
     unset($_COOKIE['Email']);
     unset($_COOKIE['Nombre']);
 }
+//Si están las cookies y está la sesión el usuario estará dentro por tanto
+//mantengo accesoCorrecto.php abierto
 if (isset($_COOKIE['Email']) and isset($_COOKIE['Nombre'])) {
     if (isset($_SESSION['DNI'])){
         require 'accesoCorrecto.php';
     }
 } 
+//Si no estan las cookies eso quiere decir que se cerro la sesion por lo que
+//en este punto necesito llamar a index2.php
 else {
     if (!isset($_COOKIE['Email']) and ! isset($_COOKIE['Nombre'])) {
         require 'index2.php';

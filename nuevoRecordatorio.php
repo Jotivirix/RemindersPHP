@@ -1,5 +1,6 @@
 <?php 
-
+//Obtengo el DNI del usuario mediante $_POST
+//El dni se lo paso a nuevoRecordatorio.php desde accesoCorrecto.php
 $dni = $_POST['dni'];
 
 ?>
@@ -11,7 +12,6 @@ $dni = $_POST['dni'];
 
 <div>
     <h1 class="text-center">Añadir Nuevo Recordatorio</h1>
-
     <div id="addRecordatorio">
         <div class="row" id="datosRecordatorio">
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
@@ -96,38 +96,91 @@ $dni = $_POST['dni'];
 
 <script>
 
+    /**
+     * 
+     * @returns {compruebaDatos();}
+     * Al cargar la pagina compruebo los datos del recordatorio
+     */
     $(document).ready(function() {
         compruebaDatos();
     });
     
+    /**
+     * 
+     * @returns {compruebaDatos();}
+     * Cuando el foco está sobre el campo del asunto del
+     * recordatorio chequeo los datos del recordatorio
+     */
     $('#asuntoRecordatorio').focus(function() {
         compruebaDatos();
     });
     
+    /**
+     * 
+     * @returns {compruebaDatos();}
+     * Cuando hace click sobre el campo del asunto del
+     * recordatorio chequeo los datos del recordatorio
+     */
     $('#asuntoRecordatorio').click(function() {
         compruebaDatos();
     });
     
+    /**
+     * 
+     * @returns {compruebaDatos();}
+     * Cuando el foco está sobre el campo de la ubicacion del
+     * recordatorio chequeo los datos del recordatorio
+     */
     $('#ubicacionRecordatorio').focus(function() {
         compruebaDatos();
     });
     
+    /**
+     * 
+     * @returns {compruebaDatos();}
+     * Cuando hace click sobre el campo de la ubicacion del
+     * recordatorio chequeo los datos del recordatorio
+     */
     $('#ubicacionRecordatorio').click(function() {
         compruebaDatos();
     });
     
+    /**
+     * 
+     * @returns {compruebaDatos();}
+     * Cuando el foco está sobre el campo de la fecha del
+     * recordatorio chequeo los datos del recordatorio
+     */
     $('#fechaRecordatorio').focus(function() {
         compruebaDatos();
     });
     
+    /**
+     * 
+     * @returns {compruebaDatos();}
+     * Cuando hace click sobre el campo de la fecha del
+     * recordatorio chequeo los datos del recordatorio
+     */
     $('#fechaRecordatorio').click(function() {
         compruebaDatos();
     });
     
+    /**
+     * 
+     * @returns {compruebaDatos();}
+     * Cuando el foco está sobre el campo de la hora del
+     * recordatorio chequeo los datos del recordatorio
+     */
     $('#horaRecordatorio').focus(function() {
         compruebaDatos();
     });
     
+    /**
+     * 
+     * @returns {compruebaDatos();}
+     * Cuando hace click sobre el campo de la hora del
+     * recordatorio chequeo los datos del recordatorio
+     */
     $('#horaRecordatorio').click(function() {
         compruebaDatos();
     });
@@ -155,8 +208,7 @@ $dni = $_POST['dni'];
         isRTL: false,
         showMonthAfterYear: false,
         yearSuffix: '',
-        minDate: 0,
-        beforeShowDay: $.datepicker.noWeekends
+        minDate: 0
     };
 
     /**
@@ -169,32 +221,62 @@ $dni = $_POST['dni'];
     /**
      * Establece que el campo fechaNacimiento es de tipo datepicker
      */
-    $("#fechaRecordatorio").datepicker();
+    $("#fechaRecordatorio").datepicker()
     
+    /**
+     * 
+     * @returns {bloquea el boton de añadir recordatorio o no en funcion
+     * de si están rellenados los datos del recordatorio correctamente
+     * o no. Tienen que estar completos todos los datos}
+     */
     function compruebaDatos(){
+        //Obtengo el asunto
         var _asunto = $('#asuntoRecordatorio').val();
+        //Obtengo la ubicación
         var _ubicacion = $('#ubicacionRecordatorio').val();
+        //Obtengo la fecha
         var _fecha = $('#fechaRecordatorio').val();
+        //Obtengo la hora
         var _hora = $('#horaRecordatorio option:selected').text();
+        //Obtengo si el campo de la hora está con 'Seleccione la hora'
         var coincide = _hora.localeCompare('Seleccione la hora');
-        if(_asunto.length === 0 || _ubicacion.length === 0 || _fecha.length === 0 || coincide == -1){
-            $('#addRecordatorioBtn').addClass('disabled');
+        //Si el asunto está vacio, la ubicación está vacía o la fecha está vacia
+        //o bien, la hora está con el valor 'Seleccione la hora' deshabilito el
+        //boton para añadir nuevos recordatorios y cambio el texto del botón
+        if(_asunto.length === 0 || _ubicacion.length === 0 || _fecha.length === 0 || coincide === -1){
+            $('#addRecordatorioBtn').prop('disabled', true);            
+            $('#addRecordatorioBtn').text('Rellene los datos');
         }
+        //Por el contrario, si está todo correcto, habilito el botón
+        //y reseteo el texto del mismo
         else {
-            $('#addRecordatorioBtn').removeClass('disabled');
+            $('#addRecordatorioBtn').prop('disabled', false);
+            $('#addRecordatorioBtn').text('Agregar recordatorio');
         }
     }
 
+    /**
+     * 
+     * @returns {Carga en el div con id resultadoInsercion el archivo
+     * insertaRecordatorio.php con los parametros asunto, ubicacion,
+     * fechaYHora y dni. Ese archivo, se encarga de insertar los
+     * recordatorios en la base de datos}
+     */
     function agregaRecordatorio() {
+        //Obtengo el dni del usuario
         var _dni = '<?php echo $dni; ?>';
+        //Obtengo el asunto
         var _asunto = $('#asuntoRecordatorio').val();
+        //Obtengo la ubicacion
         var _ubicacion = $('#ubicacionRecordatorio').val();
+        //Obtengo la fecha del recordatorio
         var _fecha = $('#fechaRecordatorio').val();
+        //Obtengo la hora del recordatorio
         var _hora = $('#horaRecordatorio option:selected').text();
+        //Junto fecha y hora para pasarselo a la base de datos
         var _fechaYHora = _fecha + ' ' + _hora;
-        console.log(_asunto);
-        console.log(_ubicacion);
-        console.log(_fechaYHora);
+        //Intento llamar a insertaRecordatorio.php con los parametros
+        //necesarios para insertar los datos en la base de datos
         $('#resultadoInsercion').load('insertaRecordatorio.php',{
             asunto: _asunto,
             ubicacion: _ubicacion,
@@ -203,17 +285,19 @@ $dni = $_POST['dni'];
         });
     }
 
+    /**
+     * Cuando hago click en el boton de agregar nuevo recordatorio
+     * se ejecuta la función agregarRecordatorio
+     */
     $('#addRecordatorioBtn').click(function () {
         agregaRecordatorio();
     });
 
+    //*********----API DE GOOGLE PARA LA BARRA DE LAS UBICACIONES----*********\\
 
-</script>
-
-<script>
-// This example adds a search box to a map, using the Google Place Autocomplete
-// feature. People can enter geographical searches. The search box will return a
-// pick list containing a mix of places and predicted search terms.
+    // This example adds a search box to a map, using the Google Place Autocomplete
+    // feature. People can enter geographical searches. The search box will return a
+    // pick list containing a mix of places and predicted search terms.
 
     function initAutocomplete() {
 
@@ -238,4 +322,5 @@ $dni = $_POST['dni'];
 
 </script>
 
+<!-- Script para ejecutar la API de Google -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3E4-IyhIDzdvPzqfrtW6wp7f6hD3OoNg&libraries=places&callback=initAutocomplete" async defer></script>
