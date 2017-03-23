@@ -82,3 +82,44 @@ h2 {
         display: block;
     }
 }
+
+#registroNuevoUsuario {
+    background-color: rgba(51,153,153,0.8);
+    border-radius: 25px;
+}
+
+#seccionRegistro > h3 {
+    color: white;
+}
+
+#seccionRegistro {
+    padding-bottom: 15px;
+}
+
+#nombreUsuario {
+    width: 100%;
+}
+
+#apellidosUsuario {
+    width: 100%;
+}
+
+#DNIUsuario {
+    width: 100%;
+}
+
+#emailUsuario {
+    width: 100%;
+}
+
+#fechaNacimientoUsuario {
+    width: 100%;
+}
+
+#userName {
+    width: 100%;
+}
+
+#passwordUser {
+    width: 100%;
+}

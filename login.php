@@ -18,7 +18,7 @@
     
     //Realizo una consulta a la base de datos en funcion del nombre de usuario
     //o del email. Obtengo todos los valores, para más adelante usarlos
-    $consulta = $mysqli -> query("SELECT * FROM Usuario WHERE (nombreUsuario = '$nombreUsuario' or  email= '$email') ;");
+    $consulta = $mysqli -> query("SELECT * FROM Usuario WHERE (NombreUsuario = '$nombreUsuario' or  Email= '$email') ;");
 
     //Obtengo el numero de filas de la consulta
     $num_filas = $consulta -> num_rows;

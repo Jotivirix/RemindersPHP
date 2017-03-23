@@ -41,6 +41,20 @@
             </div>
             <div class="col-xs-1 col-sm-3 col-md-3 col-lg-3"></div>
         </div>
+        <div class="container">
+            <div class="col-xs-1 col-sm-3 col-md-3 col-lg-3"></div>
+            <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6">
+                <br>
+                <div class="row">
+                    <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                    <div class="col-sm-10 col-md-10 col-lg-10">
+                        <button class="btn btn-lg btn-block btn-warning" id="btnRegistro" onclick="registro();">Registrarme</button>
+                    </div>
+                    <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                </div>
+            </div>
+            <div class="col-xs-1 col-sm-3 col-md-3 col-lg-3"></div>
+        </div>
     </div>
 </body>
 
@@ -97,5 +111,13 @@
     $('#btnEntrar').click(function () {
         cargaLogin();
     });
+    
+    /**
+     * 
+     * @return {type} Funcion que hace que se cargue la pagina de registro
+     */
+    function registro(){
+        $('#contenedor').load('registro.php');
+    }
 
 </script>

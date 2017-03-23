@@ -32,31 +32,31 @@ $dni = $_POST['dni'];
                 <input id="fechaRecordatorio" type="text" class="form-control" placeholder="Fecha Recordatorio" required>
                 <h3 class="text-left">Seleccione la Hora de Vencimiento</h3>
                 <select id="horaRecordatorio">
-                    <option selected>Seleccione la hora</option>
-                    <option>0:00</option>
-                    <option>1:00</option>
-                    <option>2:00</option>
-                    <option>3:00</option>
-                    <option>4:00</option>
-                    <option>5:00</option>
-                    <option>6:00</option>
-                    <option>7:00</option>
-                    <option>8:00</option>
-                    <option>9:00</option>
-                    <option>10:00</option>
-                    <option>11:00</option>
-                    <option>12:00</option>
-                    <option>13:00</option>
-                    <option>14:00</option>
-                    <option>15:00</option>
-                    <option>16:00</option>
-                    <option>17:00</option>
-                    <option>18:00</option>
-                    <option>19:00</option>
-                    <option>20:00</option>
-                    <option>21:00</option>
-                    <option>22:00</option>
-                    <option>23:00</option>
+                    <option selected value="ERROR">Seleccione la hora</option>
+                    <option value="0">0:00</option>
+                    <option value="1">1:00</option>
+                    <option value="2">2:00</option>
+                    <option value="3">3:00</option>
+                    <option value="4">4:00</option>
+                    <option value="5">5:00</option>
+                    <option value="6">6:00</option>
+                    <option value="7">7:00</option>
+                    <option value="8">8:00</option>
+                    <option value="9">9:00</option>
+                    <option value="10">10:00</option>
+                    <option value="11">11:00</option>
+                    <option value="12">12:00</option>
+                    <option value="13">13:00</option>
+                    <option value="14">14:00</option>
+                    <option value="15">15:00</option>
+                    <option value="16">16:00</option>
+                    <option value="17">17:00</option>
+                    <option value="18">18:00</option>
+                    <option value="19">19:00</option>
+                    <option value="20">20:00</option>
+                    <option value="21">21:00</option>
+                    <option value="22">22:00</option>
+                    <option value="23">23:00</option>
                 </select>
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
@@ -229,7 +229,11 @@ $dni = $_POST['dni'];
     /**
      * Establece que el campo fechaNacimiento es de tipo datepicker
      */
-    $("#fechaRecordatorio").datepicker()
+    $("#fechaRecordatorio").datepicker();
+    
+    window.setInterval(function(){
+        compruebaDatos();
+    }, 100);
     
     /**
      * 
@@ -246,15 +250,13 @@ $dni = $_POST['dni'];
         var _long = $('#longitudObtenida').val();
         //Obtengo la fecha
         var _fecha = $('#fechaRecordatorio').val();
-        //Obtengo la hora
-        var _hora = $('#horaRecordatorio option:selected').text();
         //Obtengo si el campo de la hora está con 'Seleccione la hora'
-        var coincide = _hora.localeCompare('Seleccione la hora');
+        var value = $('#horaRecordatorio').val();
         //Si el asunto está vacio, la latitud está vacía, la longitud está vacia
         //la fecha está vacia o bien, la hora está con el valor
         //'Seleccione la hora' deshabilito el boton para añadir nuevos
         //recordatorios y cambio el texto del botón
-        if(_asunto.length === 0 || _fecha.length === 0 || coincide === -1){
+        if(_asunto.length === 0 || _fecha.length === 0 || value === "ERROR"){
             $('#addRecordatorioBtn').prop('disabled', true);            
             $('#addRecordatorioBtn').text('Rellene los datos');
         }
