@@ -1,4 +1,14 @@
 <?php
+/**
+ * AUTOR:
+ * 
+ * index.php, archivo principal, contiene la cabecera HTML así como la 
+ * configuración de las cookies y sesiones para saber si se inició la
+ * sesión o no
+ */
+?>
+    
+<?php
 //Si no hay sesion la empiezo
 if (!isset($_SESSION)) {
     session_start();

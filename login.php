@@ -1,4 +1,16 @@
 <?php
+/**
+ * AUTOR:
+ * 
+ * login.php es el archivo que gestiona el acceso a la base de datos.
+ * Obtiene el nombre de usuario o email y contraseña del index2.php y realiza
+ * una consulta a la base de datos. Si los datos son correctos, se accede a 
+ * la aplicacion a accesoCorrecto.php mientras que si por el contrario hay 
+ * algun dato erróneo salta un mensaje de error
+ */
+?>
+    
+<?php
     //incluyo funciones.php
     include('./funciones.php');
     //Intento conectarme a la base de datos

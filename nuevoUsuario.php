@@ -1,4 +1,15 @@
 <?php
+/**
+ * AUTOR:
+ * 
+ * nuevoUsuario.php es la clase que se encarga de realizar la insercion en la
+ * base de datos de nuevos usuarios con los datos que le pasa registro.php
+ * Si se realiza el registro se avisa al usuario. Del mismo modo y manera, si
+ * algún error ocurre, se le avisa también del error.
+ */
+?>
+    
+<?php
 //Incluyo el archivo funciones para conectarme a la base de datos
 include('funciones.php');
 //Establezco la hora del servidor a la hora de Madrid

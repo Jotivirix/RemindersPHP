@@ -1,3 +1,15 @@
+<?php
+/**
+ * AUTOR:
+ * 
+ * nuevoRecordatorio.php es la clase mediante la cual el usuario rellena
+ * los datos que van a componer el nuevo recordatorio que quiere completar.
+ * Esos datos serán mandados a insertaRecordatorio.php y en función del
+ * resultado de la inserción se obtendrá un resultado u otro
+ */
+?>
+    
+    
 <?php 
 //Obtengo el DNI del usuario mediante $_POST
 //El dni se lo paso a nuevoRecordatorio.php desde accesoCorrecto.php

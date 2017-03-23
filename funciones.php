@@ -1,4 +1,15 @@
 <?php
+/**
+ * AUTOR:
+ * 
+ * funciones.php es el archivo que se encarga de realizar la conexion
+ * a la base de datos con los parametros de configuracion
+ */
+?>
+    
+    
+    
+<?php
 
 function conectaBBDD(){
     require('configuracion.php');

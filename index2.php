@@ -1,3 +1,15 @@
+<?php
+/**
+ * AUTOR:
+ * 
+ * index2.php es el complemento de index.php Contiene el formulario de acceso
+ * a la aplicación. Desde este archivo podemos llamar a login.php en caso de
+ * acceder correctamente o a registro.php en el caso de querer registrarnos en
+ * la aplicacion para poder utilizarla
+ */
+?>
+
+
 <link rel="icon" type="image/png" href="img/favicon.png"/>
 <meta charset="UTF-8">
 

@@ -1,12 +1,14 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * AUTOR:
+ * 
+ * registro.php es la clase php en la cual, el usuario rellena el formulario
+ * diseñado para el registro. Cuando pulse el boton de registrar, los datos
+ * se enviarán a nuevoUsuario.php y en ese archivo será donde se intente
+ * realizar la inserción en la base de datos.
  */
-
 ?>
+
 
 <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
 <link rel="stylesheet" href="css/jquery-ui.theme.min.css" type="text/css">
@@ -61,7 +63,7 @@
                 <div class="row hidden-xs">
                     <div class="col-sm-1 col-md-1 col-lg-1"></div>
                     <div class="col-sm-5 col-md-5 col-lg-5">
-                        <button class="btn btn-lg btn-block btn-danger" id="backIndex">Volver A Inicio</button>
+                        <button class="btn btn-lg btn-block btn-danger" id="backIndex" onclick="volver();">Volver A Inicio</button>
                     </div>
                     <div class="col-sm-5 col-md-5 col-lg-5">
                         <button class="btn btn-lg btn-block btn-success" id="registrarme" onclick="registraNuevoUsuario();">Registrarse</button>
@@ -71,7 +73,7 @@
                 <div class="row visible-xs">
                     <div class="col-xs-1"></div>
                     <div class="col-xs-10">                        
-                        <button class="btn btn-lg btn-block btn-danger" id="backIndexXS">Volver A Inicio</button>
+                        <button class="btn btn-lg btn-block btn-danger" id="backIndexXS" onclick="volver();">Volver A Inicio</button>
                         <br>
                         <button class="btn btn-lg btn-block btn-success" id="registrarmeXS" onclick="registraNuevoUsuario();">Registrarse</button>
                     </div>
@@ -103,22 +105,51 @@
         $('#DNIRepetido').css('display','none');
     });
     
+    /**
+     * 
+     * @returns {Vuelve al index tras pulsar el boton de volver}
+     */
+    function volver(){
+        window.location.replace("index.php");
+    }
+    
+    /**
+     * 
+     * Cuando hago foco en el DNI compruebo los campos clave
+     */
     $('#DNIUsuario').focus(function (){
         compruebaCamposClave();
     });
     
+    /**
+     * 
+     * Cuando hago foco en el email compruebo los campos clave
+     */
     $('#emailUsuario').focus(function (){
         compruebaCamposClave();
     });
     
+    /**
+     * 
+     * Cuando hago foco en el nombre de usuario compruebo los campos clave
+     */
     $('#userName').focus(function (){
         compruebaCamposClave();
     });
     
+    /**
+     * 
+     * Cada 100ms chequeo la longitud de los campos
+     */
     window.setInterval(function(){
         compruebaLongitudCampos();
     }, 100);
     
+    /**
+     * 
+     * @returns {Devuelve si se puede proceder al registro o no en funcion
+     * de si los campos están rellenos correctamente o no}
+     */
     function compruebaLongitudCampos(){
         var _nombre = $('#nombreUsuario').val();
         var _apellidos = $('#apellidosUsuario').val();
@@ -140,6 +171,10 @@
         }
     }
     
+    /**
+     * 
+     * @returns {Comprueba los campos claves para que no se repitan}
+     */
     function compruebaCamposClave(){
         var _dni = $('#DNIUsuario').val();
         var _email = $('#emailUsuario').val();
@@ -152,6 +187,12 @@
         });
     }
     
+    /**
+     * 
+     * @returns {Llama a nuevoUsuario.php con los parametros nombre,
+     * apellido, dni, email, fecha de nacimiento, nombre de usuario y
+     * contraseña y registra al usuario si todo es correcto}
+     */
     function registraNuevoUsuario(){        
         var _nombre = $('#nombreUsuario').val();
         var _apellidos = $('#apellidosUsuario').val();

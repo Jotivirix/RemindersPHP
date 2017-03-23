@@ -1,4 +1,16 @@
 <?php
+/**
+ * AUTOR:
+ * 
+ * misRecordatorios.php es la clase que gestiona la consulta a la base de
+ * datos para obtener todos los recordatorios de un usuario en concreto.
+ * Ordena los recordatorios de más recientes a vencer en el tiempo a más 
+ * lejanos.
+ */
+?>
+    
+    
+<?php
 //Obtengo el DNI del usuario mediante $_POST
 //El dni se lo paso a nuevoRecordatorio.php desde accesoCorrecto.php
 $dni = $_POST['dni'];
@@ -19,7 +31,7 @@ $dni = $_POST['dni'];
         $recordatorios = array();
         //hago la consulta a la BBDD
         date_default_timezone_set('Europe/Madrid');
-        $consulta = $mysqli->query("SELECT * FROM Recordatorio WHERE IDUsuario = '$dni'");
+        $consulta = $mysqli->query("SELECT * FROM Recordatorio WHERE IDUsuario = '$dni' ORDER BY FechaVencimiento ASC");
         //saco el numero de usuarios que hay en la bbdd
         $numRecordatorios = $consulta -> num_rows;
         //Si no hay recordatorios, oculto la tabla

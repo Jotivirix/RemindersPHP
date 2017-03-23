@@ -1,4 +1,15 @@
 <?php
+/**
+ * AUTOR:
+ * 
+ * completaRecordatorio.php es la clase que se encarga de insertar en
+ * nuestra base de datos los datos del recordatorio insertado desde la
+ * clase nuevoRecordatorio.php. En funcion del resultado de la inserción
+ * sale un mensaje u otro al usuario
+ */
+?>
+    
+<?php
 //Incluyo el archivo funciones para conectarme a la base de datos
 include('funciones.php');
 //Establezco la hora del servidor a la hora de Madrid

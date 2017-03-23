@@ -1,4 +1,15 @@
 <?php
+/**
+ * AUTOR:
+ * 
+ * accesoCorrecto.php es la clase que se encarga de mostrar la interfaz principal
+ * de la aplicacion. Llegamos a ella tras pasar por el index y hacer un login
+ * satisfactorio. Desde esta clase podremos añadir nuevos recordatorios así
+ * como consultar los que ya hemos añadido con anterioridad
+ */
+?>
+
+<?php
 //Guardo en la variable $nombre el valor de la $_SESSION de Nombre
 $nombre = $_SESSION['Nombre'];
 //Guardo en la variable $dni el valor de la $_SESSION del DNI

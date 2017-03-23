@@ -1,4 +1,16 @@
 <?php
+/**
+ * AUTOR:
+ * 
+ * insertaRecordatorio.php es la clase que gestiona la insercion de un nuevo
+ * recordatorio en la base de datos con los datos que ha introducido el 
+ * usuario en la clase nuevoRecordatorio.php. En función del resultado de la
+ * inserción, al usuario le saldrá un mensaje u otro
+ */
+?>
+    
+    
+<?php
 //Incluyo el archivo funciones para conectarme a la base de datos
 include('funciones.php');
 //Establezco la hora del servidor a la hora de Madrid
